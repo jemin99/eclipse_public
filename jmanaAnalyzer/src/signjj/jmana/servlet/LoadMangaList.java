@@ -39,11 +39,12 @@ public class LoadMangaList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String list_base_url = request.getParameter("list_base_url");
+		String page_base_url = request.getParameter("page_base_url");
 		String manga_title = request.getParameter("manga_title");
-		System.out.println(list_base_url+manga_title);
+		System.out.println(list_base_url+"\t"+page_base_url+"\t"+manga_title);
 		
 		GetMangaData gml = new GetMangaData();
-		JSONArray dataArr = gml.getMangaList(list_base_url, manga_title);
+		JSONArray dataArr = gml.getMangaList(list_base_url, page_base_url, manga_title);
 		
 		DBManager db = new DBManager();
 		JSONArray dbArr = null;

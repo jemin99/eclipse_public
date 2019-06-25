@@ -40,7 +40,7 @@ public class LoadMangaPage extends HttpServlet {
 		String manga_vol = request.getParameter("manga_vol");
 		String page_base_url = request.getParameter("page_base_url");
 		String manga_url = request.getParameter("manga_url");
-		System.out.println("Title : "+manga_title+" Vol : "+manga_vol);
+		System.out.println("Title : "+manga_title+" Vol : "+manga_vol+" page_base_url : "+page_base_url+" manga_url : "+manga_url);
 		
 		GetMangaData gml = new GetMangaData();
 		JSONArray dataArr = gml.getMangaPage(manga_title, manga_vol, page_base_url, manga_url);
