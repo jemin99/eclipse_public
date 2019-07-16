@@ -71,22 +71,27 @@ public class GetMangaData {
 					.userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36")
 					.get();
 			
-			Elements pagesEle = doc.select("div.center > img[data-src]");
+			Elements pagesEle = doc.select("div.center > img");
 			
 			JSONArray pagesArr = new JSONArray();
 			
 			for(int i=0; i<pagesEle.size(); i++) {
 				Element pageEle = pagesEle.get(i);
 				
-				String src = pageEle.attr("data-src");
+				String src = null;
 				
-				JSONObject pageJSON = new JSONObject();
-				pageJSON.put("title", manga_title);
-				pageJSON.put("vol", manga_vol);
-				pageJSON.put("page", i);
-				pageJSON.put("url", src);
+				if(pageEle.hasAttr("src")) src = pageEle.attr("src");
+				else if(pageEle.hasAttr("data-src")) src = pageEle.attr("data-src");
 				
-				pagesArr.add(pageJSON);
+				if(src != null) {
+					JSONObject pageJSON = new JSONObject();
+					pageJSON.put("title", manga_title);
+					pageJSON.put("vol", manga_vol);
+					pageJSON.put("page", i);
+					pageJSON.put("url", src);
+					
+					pagesArr.add(pageJSON);
+				}
 			}
 			
 			return pagesArr;
